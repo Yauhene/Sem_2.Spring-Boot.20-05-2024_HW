@@ -57,7 +57,17 @@ public class StudentController {
      */
     @GetMapping("/name/{nameLike}")
     public List<Student> getStudentByNameLike(@PathVariable String nameLike) {
-        System.out.println("Enter in getStudentByNameLike");
         return repository.getStudentByNameLike(nameLike);
     }
+
+    /**
+     * Функция добавления студента методом POST
+     * @param student - новый экземпляр студента
+     * @return
+     */
+    @PostMapping("/add")
+    public Student addStudent(@RequestBody Student student) {
+        return repository.addStudent(student);
+    }
+
 }

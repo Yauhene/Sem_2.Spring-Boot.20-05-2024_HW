@@ -4,8 +4,6 @@ import org.springframework.stereotype.*;
 
 import java.util.*;
 
-import static jdk.dynalink.StandardNamespace.findFirst;
-
 @Component
 public class StudentRepository {
 
@@ -52,16 +50,18 @@ public class StudentRepository {
     }
     public List<Student> getStudentByNameLike(String nameLike) {
         List<Student> namesList = new ArrayList<>();
-        System.out.println("Enter to repository");
-        System.out.println("nameLike = " + nameLike);
 
         for (Student st: students   ) {
             System.out.println(st.getName());
             if (st.getName().contains(nameLike)) {
                 namesList.add(st);
-                System.out.println(st);
             }
         }
         return namesList;
+    }
+
+    public Student addStudent(Student student) {
+       students.add(student);
+        return student;
     }
 }
