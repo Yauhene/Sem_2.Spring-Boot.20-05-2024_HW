@@ -4,6 +4,8 @@ import org.springframework.stereotype.*;
 
 import java.util.*;
 
+import static jdk.dynalink.StandardNamespace.findFirst;
+
 @Component
 public class StudentRepository {
 
@@ -32,16 +34,34 @@ public class StudentRepository {
     }
 
     public Student getByName(String name) {
-        return students.stream()
+        return (Student) students.stream()
                 .filter(it -> Objects.equals(it.getName(), name))
                 .findFirst()
                 .orElse(null);
     }
 
-    public Student getByGroupName(String groupName) {
-        return students.stream()
-                .filter(it -> Objects.equals(it.getGroupName(), groupName))
-                .findFirst()
-                .orElse(null);
+    public List<Student> getStudentByGroupName(String groupName) {
+        List<Student> groupList = new ArrayList<>();
+
+        for (Student st: students) {
+            if (st.getGroupName().equals(groupName)) {
+                groupList.add(st);
+            }
+        }
+        return groupList;
+    }
+    public List<Student> getStudentByNameLike(String nameLike) {
+        List<Student> namesList = new ArrayList<>();
+        System.out.println("Enter to repository");
+        System.out.println("nameLike = " + nameLike);
+
+        for (Student st: students   ) {
+            System.out.println(st.getName());
+            if (st.getName().contains(nameLike)) {
+                namesList.add(st);
+                System.out.println(st);
+            }
+        }
+        return namesList;
     }
 }
